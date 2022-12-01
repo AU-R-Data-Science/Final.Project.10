@@ -99,8 +99,8 @@ logistic.regression <- function(X, Y, method="BFGS", cutoff=0.5, alpha=0.1,B=20)
 
   beta.info <- data.frame(model,beta.initial, t(CI))
   colnames(beta.info) <- c("Beta.hat","Beta.initial",paste("CI:",alpha/2,"%",sep=""),paste("CI:",1-alpha/2,"%",sep=""))
-  plot <- metrics.plot(X,Y)
-  result.list <- list("Level"=level,"Beta"=beta.info,"Confusion.Matrix"=matrix,"Metrics"=Analysis$metrics,"Metrics Matrix"=plot)
+  table <- metrics.table(X,Y)
+  result.list <- list("Level"=level,"Beta"=beta.info,"Confusion.Matrix"=matrix,"Metrics"=Analysis$metrics,"Metrics Table"=table)
   result.list
   return(result.list)
 }
