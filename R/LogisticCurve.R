@@ -9,7 +9,6 @@
 
 logistic_plot <- function(X,Y){
   library(ggplot2)
-  Y=as.factor(Y)
   n=dim(data.frame(X))[2]
   if(n==1)
   {

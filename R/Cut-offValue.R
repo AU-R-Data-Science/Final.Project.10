@@ -11,7 +11,6 @@
 
 metrics.table <- function(X, Y, interval=c(0.1,0.9), step=0.1){
   library(ggplot2)
-  Y=as.factor(Y)
   model = Beta.hat(X, Y)
   predict <- logistic_pred(model, X)
   actual.value <- as.numeric(Y)-1

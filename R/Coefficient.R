@@ -9,7 +9,6 @@
 #'
 
 Beta.hat <-  function(X,Y,method="BFGS"){
-  Y=as.factor(Y)
   Beta <- Beta.init(X,Y)
   Xi=X.format(X,intercept = T)
   Y=as.numeric(Y)-1

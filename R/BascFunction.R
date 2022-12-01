@@ -26,7 +26,6 @@ X.format <- function(X,intercept=F)
 #' @export
 #'
 Beta.init <- function(X,Y){
-  Y=as.factor(Y)
   Xi=X.format(X,intercept = T)
   Y=as.numeric(Y)-1
   Beta <- solve(t(Xi)%*%Xi)%*%t(Xi)%*%Y
