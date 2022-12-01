@@ -23,22 +23,16 @@ metrics.list <- function(X, Y, interval=c(0.1,0.9), step=0.1){
                                   actual.value,
                                   cutoff=cutoff.list[i])$metrics
   }
-  image <- data.frame(cutoff=rep(cutoff.list,6),
-                      value=c(data[ ,1],
-                              data[ ,2],
-                              data[ ,3],
-                              data[ ,4],
-                              data[ ,5],
-                              data[ ,6]),
-                      group=rep(c("Prevalence",
-                                  "Accuracy",
-                                  "Sensitivity",
-                                  "Specificity",
-                                  "False.Discovery.Rate",
-                                  "Diagnostic.Odds.Ratio"),
-                                n,
-                                each=n))
-  return(image)
+
+  data <- cbind(cutoff.list,data)
+  colnames(data) <-c("Cut-off value",
+                     "Prevalence",
+                     "Accuracy",
+                     "Sensitivity",
+                     "Specificity",
+                     "False.Discovery.Rate",
+                     "Diagnostic.Odds.Ratio")
+  return(data)
 }
 
 

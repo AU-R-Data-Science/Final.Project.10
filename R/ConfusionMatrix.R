@@ -12,7 +12,7 @@ confusion.matrix <- function(pred.value, actual.value, cutoff=0.5){
   Confusion <- data.frame(pred=pred.value, actual=actual.value)
   Confusion[Confusion >= cutoff]=1
   Confusion[Confusion < cutoff]=0
-  Confusion[,c(1,2)]=lapply
+  Confusion[,c(1,2)]=lapply(Confusion[,c(1,2)], as.factor)
 
   N = nrow(Confusion)
   TP = nrow(Confusion[Confusion$pred=="1" & Confusion$actual=="1", ])
