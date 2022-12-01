@@ -43,4 +43,16 @@ confusion.matrix <- function(pred.value, actual.value, cutoff=0.5){
   return(output.list)
 }
 
-
+#' Calculate the predicted value.
+#' @description {Input the parameters of the logistic regression model and predictor variables to obtain the predicted values.}
+#' @param model The parameters of the logistic regression model.
+#' @param X  X An \eqn{n \times p} \code{double} value of the matrix containing the values of the predictors.
+#' @return The confusion matrix and six metrics
+#' @author Fangjian Yang
+#' @export
+#'
+logistic_pred <- function(model,X){
+  Xi=X.format(X,intercept = T)
+  predic <- 1/(1+exp(-Xi%*%model))
+  return(predic)
+}
