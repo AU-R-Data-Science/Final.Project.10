@@ -26,6 +26,7 @@ X.format <- function(X,intercept=F)
 #' @export
 #'
 Beta.init <- function(X,Y){
+  Y=as.factor(Y)
   Xi=X.format(X,intercept = T)
   Y=as.numeric(Y)-1
   Beta <- solve(t(Xi)%*%Xi)%*%t(Xi)%*%Y
@@ -64,3 +65,43 @@ loss_func <- function(beta,y,xi){
   temp <- -y*log(p)-(1-y)*log(1-p)
   return(sum(temp))
 }
+
+#' Summary of the output of the logistic regression function
+#' @description {Inputting the data set into this function can fit a logistic regression, and can get the following output: 1. estimated logistic regression model; 2. confidence intervals for the parameters in the model; 3. logistic regression curves for each predictor; 4. confusion matrix; 5. output for the six metrics; and 6. metrics with different cutoff values.}
+#' @param X  X An \eqn{n \times p} \code{double} value of the matrix containing the values of the predictors.
+#' @param Y  A factor vector indicating the category of response
+#' @param method The method to be used by optim() function include "Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "SANN", "Brent". The default value is "BFGS"
+#' @param cutoff The cut-off value for measuring metrics.
+#' @param alpha A variable that indicating the significance level
+#' @param B A variable indicating the number of bootstraps(Default 20)
+#' @return The list of all output
+#' @author Fangjian Yang
+#' @export
+#'
+
+
+logistic.regression <- function(X, Y, method="BFGS", cutoff=0.5, alpha=0.1,B=20){
+  beta.initial <- Beta.init(X, Y)
+  model <- Beta.hat(X, Y,method)
+  CI <- boot.confi(X, Y, alpha,B=20)
+  predict <- logistic_pred(model, X)
+  actual.value <- as.numeric(Y)-1
+  Analysis <- confusion.matrix(predict, actual.value, cutoff=cutoff)
+
+  Yi <- as.numeric(Y)-1
+  level <- as.character(unique(Y))
+  names(level) <- unique(Yi)
+  matrix <- matrix(Analysis$matrix,nrow=2,ncol=2)
+  rownames(matrix) <- c(paste("Actual.", level["1"],sep=""),
+                        paste("Actual.", level["0"],sep=""))
+  colnames(matrix) <- c(paste("Predicted.", level["1"],sep=""),
+                        paste("Predicted.", level["0"],sep=""))
+
+  beta.info <- data.frame(model,beta.initial, t(CI))
+  colnames(beta.info) <- c("Beta.hat","Beta.initial",paste("CI:",alpha/2,"%",sep=""),paste("CI:",1-alpha/2,"%",sep=""))
+  plot <- metrics.plot(X,Y)
+  result.list <- list("Level"=level,"Beta"=beta.info,"Confusion.Matrix"=matrix,"Metrics"=Analysis$metrics,"Metrics Matrix"=plot)
+  result.list
+  return(result.list)
+}
+
