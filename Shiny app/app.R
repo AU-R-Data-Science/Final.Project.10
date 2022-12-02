@@ -68,7 +68,7 @@ ui <- fluidPage(
           tabsetPanel(
             tabPanel("Metrics list", tableOutput("Metrics.list")),
             tabPanel("Metrics Plot", plotOutput("plot")),
-            tabPanel("Confusion Matrix", tableOutput("Confusion.Matrix")),
+            tabPanel("Confusion Matrix", tableOutput("Confusion.Matrix"), tableOutput("Current.Metrics")),
             tabPanel("Logistic Regression model",tableOutput("Beta"),textOutput("Note"))
             )
         )
@@ -124,6 +124,14 @@ server <- function(input, output) {
                               paste("Predicted.", level["0"],sep=""))
         matrix
     },rownames = TRUE)
+
+    output$Current.Metrics <- renderTable({
+      predict <- logistic_pred(Beta.hat(Weekly[,input$Predictor],Weekly$Direction), Weekly[,input$Predictor])
+      actual.value <- as.numeric(Weekly$Direction)-1
+      Analysis <- confusion.matrix(predict, actual.value, cutoff=input$cutoff)
+      output <- t(Analysis$metrics)
+      output
+    })
 
     output$Beta <- renderTable({
       Boot <- round(input$bootstrap,0)
