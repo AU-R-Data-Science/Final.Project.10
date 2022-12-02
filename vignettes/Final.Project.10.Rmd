@@ -1,0 +1,31 @@
+---
+title: "Final.Project.10"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Final.Project.10}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Final.Project.10)
+```
+
+`vignette("Beta.hat()", package = "Final.Project.10")`
+
+
+`Beta.hat()`
+`vignette("try.Rmd")`
+
+
+vignette("extending-ggplot2", package = "ggplot2")
+```{r out.width = '70%', echo = FALSE}
+knitr::include_graphics("lieral.png")
+```
