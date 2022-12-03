@@ -21,6 +21,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r prepare, include=FALSE}
+library(devtools)
+install_github("https://github.com/AU-R-Data-Science/Final.Project.10")
+```
+
 ## Introduction
 
 The `Final.Project.10` package in based on the final project assignment of STAT-6210
@@ -58,23 +63,31 @@ X_train <- Training.set.1[,c("Lag1","Lag2","Lag3","Lag4","Lag5","Volume")]
 y_train <- Training.set.1$Direction
 ```
 
-## Train the model
+## Summary function `logistic.regression()`
 
-Use the function `logistic.regression()` to fit the model. Note that the parameter `Y` must be factors. `logistic.regression()` is a summary of analysis, the output of this function is a list which includes:
+The `logistic.regression()` contains all the functions that the package is can implement, it is a summary of the analysis, and its output is a list data that include the following, and these values can also be calculated by separate functions. The help document of all these functions can be found in the package.
 
 1.  The level of response;
 
-2.  Estimated \Beta value;
+2.  Estimated \Beta value; (`Beta.hat()`)
 
-3.  Initial \Beta value;
+3.  Initial \Beta value; (`Beta.init()`)
 
-4.  The Confidence interval of \Beta;
+4.  The Confidence interval of \Beta; (`boot.confi()`)
 
-5.  Confusion Matrix;
+5.  Confusion Matrix; (`boot.confi()`)
 
-6.  Default metrics(with 0.5 cut-off value);
+6.  Default metrics(with 0.5 cut-off value); (`confusion.matrix()`)
 
-7.  Table of different cut-off and metrics.
+7.  Table of different cut-off and metrics; (`metrics.table()`)
+
+8.  Plot of different cut-off and metrics;
+
+9.  Logistic curve for each perdictor. (`logistic_plot()`)
+
+## Train the model
+
+Use the function `logistic.regression()` to fit the model. Note that the parameter `Y` must be factors.
 
 ```{r}
 fit <- logistic.regression(X_train, y_train, # required
@@ -105,14 +118,15 @@ fit.glm$coefficients
 
 ## Bootstrap confidence Interval
 
-The bootstrap process was performed when we called `logistic.regression()`.
-And the confidence interval can also be calculated by `boot.confi()`.
+The bootstrap process was performed when we called `logistic.regression()`. And the confidence interval can also be calculated by `boot.confi()`.
+
 ```{r}
-CI <- boot.confi(X=X_train,Y=y_train,alpha=0.05,B=20)
-knitr::kable(CI)
+#CI <- boot.confi(X=X_train,Y=y_train,alpha=0.05,B=20)
+#knitr::kable(CI)
 ```
 
 ## Predict and Inspect the output
+
 From that we obtain the resulting confusion matrix using a cut-off value for prediction at 0.5:
 
 ```{r}
@@ -138,15 +152,10 @@ We can see that some of the value in this table became NaN or Inf, that is becau
 
 ## Visualization of output:
 
-The possibility for the user to plot of any of the above metrics evaluated over a grid of cut-off values for prediction going from 0.1 to 0.9 with steps of 0.1.
+The possibility for the user to plot of any of the above metrics evaluated over a grid of cut-off values for prediction going from 0.1 to 0.9 with steps of 0.1. (The graph ignores the missing Diagnostic odds ratio and false discovery rate values.)
 
-```{r}
-library(ISLR)
-Training.set.1 <- Weekly
-Training.set.2 <- mtcars
-head(Training.set.1)
-head(Training.set.2)
-Training.set.2$vs <- as.factor(Training.set.2$vs)
+```{r,  fig.height=3.5, fig.width=6}
+fit$`Cut-off image`
 ```
 
 ## Fitted Logistic curve
@@ -154,5 +163,8 @@ Training.set.2$vs <- as.factor(Training.set.2$vs)
 To demonstrate the function `logistic_plot()` for plotting logistic curves in packages, this section uses `mtcars` as the dataset, where `mpg`, `dis` and `hp` are used as predictors and `vs` is used as the response. The output of the `logistic_plot()` function is in list format, which contains the logistic regression curves for each predictor. For example, in this example the first element represents the logistic regression curve between `mpg` and `vs`, the second element represents the logistic regression curve between `disp` and `vs`, and the third element represents the logistic regression curve between `hp` and `vs`.
 
 ```{r}
+Training.set.2 <- mtcars
+head(Training.set.2)
+Training.set.2$vs <- as.factor(Training.set.2$vs)
 logistic_plot(X=Training.set.2[,c("mpg","disp","hp")],Y=Training.set.2[,"vs"])
 ```
