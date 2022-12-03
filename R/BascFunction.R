@@ -86,7 +86,7 @@ logistic.regression <- function(X, Y, method="BFGS", cutoff=0.5, alpha=0.1,B=20)
   predict <- logistic_pred(model, X)
   actual.value <- as.numeric(Y)-1
   Analysis <- confusion.matrix(predict, actual.value, cutoff=cutoff)
-
+  p <- logistic_plot(X,Y)
   Yi <- as.numeric(Y)-1
   level <- as.character(unique(Y))
   names(level) <- unique(Yi)
@@ -99,7 +99,17 @@ logistic.regression <- function(X, Y, method="BFGS", cutoff=0.5, alpha=0.1,B=20)
   beta.info <- data.frame(model,beta.initial, t(CI))
   colnames(beta.info) <- c("Beta.hat","Beta.initial",paste("CI:",alpha/2,"%",sep=""),paste("CI:",1-alpha/2,"%",sep=""))
   table <- metrics.table(X,Y)
-  result.list <- list("Level"=level,"Beta"=beta.info,"Confusion.Matrix"=matrix,"Metrics"=Analysis$metrics,"Metrics Table"=table)
+  table.2 <- data.frame("cutoff"=NA,"value"=NA)[-1,]
+  for(i in 2:7){
+    temp <- table[,c(1,i)]
+    colnames(temp) <- c("cutoff","value")
+    table.2=rbind(table.2,temp)
+  }
+  table.2=cbind(table.2,data.frame(group=rep(colnames(table)[-1],each=9)))
+  Cutoff.image <- ggplot(table.2,aes(x=cutoff,y=value,col=group))+geom_line(size=1)
+
+
+  result.list <- list("Level"=level,"Beta"=beta.info,"Confusion.Matrix"=matrix,"Metrics"=Analysis$metrics,"Metrics Table"=table,"Cut-off image"=Cutoff.image,"Logistic Curve"=p)
   result.list
   return(result.list)
 }
