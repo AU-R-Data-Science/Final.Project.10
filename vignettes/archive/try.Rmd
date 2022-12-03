@@ -1,0 +1,139 @@
+---
+title: "try"
+author: 'Group 10: Fangjian Yang, Leshan Zhao'
+date: "2022-12-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+For the source code of our package please see <https://github.com/AU-R-Data-Science/Final.Project.10.git>.
+
+
+
+```{r}
+library(Final.Project.10)
+```
+
+```{r}
+setwd("E:/CS/R/STAT6210/FinalProject/Final_Project_10/vignettes")
+```
+
+
+Fetch example data. Here we use covid.csv as example.
+```{r}
+# 
+# covid <- read.csv("covid.csv", )
+# covid <- na.omit(covid)
+# covid$Hospitalization.type <- as.factor(covid$Hospitalization.type)
+# covid$Symptoms <- as.factor(covid$Symptoms)
+# covid$Outcome <- as.factor(covid$Outcome)
+# covid$Epidemiological.link...Notes <- as.character(covid$Epidemiological.link...Notes)
+# covid$Date.of.diagnosis <- as.Date(covid$Date.of.diagnosis)
+# covid <- covid[order(covid[,"Date.of.diagnosis"]),]
+
+
+```
+
+
+Fetch example data. Here we use adult.csv as example.
+```{r}
+adult <- na.omit(read.csv("adult.csv", sep = ";")[,2:16])
+names(adult)[15]<-"salary"
+adult$salary<-substring(adult$salary, 2,6)
+
+# replace “>50K” with the value 1 and “<=50K” with 0
+adult$salary<-ifelse(adult$salary==">50K",1,0)
+
+# format it as a factor with two levels
+adult$salary<-as.factor(adult$salary)
+
+
+
+X_train <- adult[,1:14]
+y_train <- adult[,15]
+
+
+
+```
+
+
+```{r}
+library(ISLR)
+mtcars[,8] = as.factor(mtcars[,8])
+X_train = mtcars[,2:3]
+y_train = mtcars[,8]
+logistic.regression(X_train, y_train)
+```
+```{r}
+
+```
+
+
+```{r}
+cardio = read.csv("cardio_train.csv", sep = ";")
+X_train = cardio[1:10000, 2:7]
+y_train = as.factor(cardio[1:10000, 13])
+```
+
+```{r}
+X_train = Weekly[, 2:7]
+y_train = Weekly[, 9]
+list <- logistic.regression(X_train, y_train)
+list$Confusion.Matrix
+list$Metrics
+list$`Metrics Table`
+```
+
+
+
+
+```{r}
+
+
+fit.glm <- glm(data = Weekly, Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, family = binomial)
+summary(fit.glm)
+pred.glm <- predict(fit.glm, type = "response")
+table(pred.glm > 0.5)
+
+pred.glm[pred.glm > 0.5] <- "1"
+pred.glm[pred.glm != "1"] <- "0"
+pred.glm <- as.factor(pred.glm)
+
+(pred.glm, Weekly[,9])
+
+```
+
+
+```{r}
+fit.glm <- glm(data = cardio[1:10000,], as.factor(cardio)~age+gender+height+weight+ap_hi+ap_lo, family = binomial)
+summary(fit.glm)
+pred.glm <- predict(fit.glm, type = "response")
+table(pred.glm > 0.5)
+
+pred.glm[pred.glm > 0.5] <- "1"
+pred.glm[pred.glm != "1"] <- "0"
+pred.glm <- as.factor(pred.glm)
+confusion.matrix(pred.glm, as.factor(cardio[1:10000, 13]))
+```
+
+
+Initial values for optimization obtained from the least-squares formula
+```{r}
+Beta.init(X_train, y_train)
+bppt.confi(X_train, y_train, 0.05)
+```
+
+
+
+
+Estimate the coefficient vector \beta
+```{r}
+
+```
+

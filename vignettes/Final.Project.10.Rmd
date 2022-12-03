@@ -1,5 +1,5 @@
 ---
-title: "`Final.Project.10` Vignette"
+title: "`Final.Project.10`  Vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Final.Project.10}
@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Source: `https://github.com/AU-R-Data-Science/Final.Project.10`
+Source: <https://github.com/AU-R-Data-Science/Final.Project.10>
 
 GitHub repository: `Final.Project.10`
 
@@ -16,9 +16,13 @@ Package: `Final.Project.10`
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
+
+
+## Introduction
 
 The `Final.Project.10` package in based on the final project assignment of STAT-6210
 
@@ -26,15 +30,94 @@ The `Final.Project.10` package in based on the final project assignment of STAT-
 library(Final.Project.10)
 ```
 
+
 The available functions allow the user to input data sets to fit a logistic regression. The output includes: 1. estimated logistic regression model parameters; 2. initial values of the parameters; 3. confidence intervals for each parameter; 4. fitted logistic regression curves; 5. confusion matrix; 6. six metrics based on default cut-off values (Prevalence, Accuracy, Sensitivity, Specificity, False Discovery Rate and Diagnostic Odds Ratio) and 7. metrics with different cut-off values.
 
 This document shows the usage and output of the functions in `Final.Project.10`, using the `Weekly` dataset from the `ISLR` package and the `mtcars` dataset as examples. The `Weekly` dataset described the weekly percentage returns for the S&P 500 stock index between 1990 and 2010. And the `mtcars` was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973--74 models).
 
 ## Data Pre-Processing
 
+As an example, here we utilize the dataset `Weekly` from package `ISLR`
+```{r}
+library(ISLR)
+str(Weekly)
+```
+
 The `Weekly` dataset has 1089 observations which contains 9 attributes, where `Lag1`, `Lag2`, `Lag3`, `Lag4`, `Lag5` and `Volume`, can be used as predictor, and `Direction` can be used as response. The `mtcars` has 32 observations which contains 11 attributes, where `mpg`, `dis` and `hp` can be used as predictor, and `vs` can be used as response.
 
 It is important to note that the response values referenced in the functions available in this package need to be in factor format. Therefore, the `vs` variable in `mtcars` should be converted to factor format before calling the function.
+
+
+We want to take only the parameters `Lag1`, `Lag2`, `Lag3`, `Lag4`, `Lag5` and `Volume` as input.
+```{r}
+Training.set.1 <- Weekly
+head(Training.set.1)
+```
+
+
+```{r}
+X_train <- Training.set.1[,2:7]
+y_train <- Training.set.1[,9]
+```
+
+
+## Train the model
+Use the function `logistic.regression()` to fit the model. Note that the parameter `Y` must be factors.
+```{r}
+fit <- logistic.regression(X_train, y_train, # required
+                           cutoff = 0.5,     # If you don't specify, the default will be 0.5
+                           alpha = 0.1,      # If you don't specify, the default will be 0.1
+                           B = 20)            # If you don't specify, the default will be 20
+```
+
+The user is able to choose the significance level \alpha to obtain for the 1−\alpha confidence intervals for \beta, as well as the cutoff value,  where the default value is set to *0.1* and *0.5*, respectively.
+
+The user is also able to choose the number of bootstraps which by default will be *20*.
+
+
+## Chech the optimization parameters
+Initial values for optimization obtained from the least-squares:
+```{r}
+optimization <- fit$Beta
+knitr::kable(optimization)
+```
+
+The optimal \Beta is the same when we use the embeded `glm` method of R:
+```{r}
+fit.glm <- glm(data = Weekly, Direction~Lag1+Lag2+Lag3+Lag4+Lag5+Volume, family = binomial)
+fit.glm$coefficients
+```
+
+
+
+## Predict and Inspect the output
+The bootstrap process was performed when we called `logistic.regression` function.
+From that we obtain the resulting confusion matrix using a cut-off value for prediction at 0.5:
+```{r}
+confusion_Matrix <- fit$Confusion.Matrix
+knitr::kable(confusion_Matrix)
+```
+
+
+And all the statistical metrics, including `Prevalence`, `Accuracy`, `Sensitivity`, `Specificity`, `False Discovery Rate`, and `Diagnostic Odds Ratio`, can be output by:
+```{r}
+fit$Metrics
+```
+
+
+Too see how the metrics vary when we use different cut-off values, check the `Metrics Table`:
+```{r}
+metrics.table <- fit$'Metrics Table'
+knitr::kable(metrics.table)
+```
+
+We can see that some of the value in this table became NaN or Inf, that is because when the cut-off value is too small or too high, the model may classify all the test data to be positive or all negative, which will make the denominator to be 0 in the calculation.
+
+
+## Visualization of output:
+The possibility for the user to plot of any of the above metrics evaluated over a grid of cut-off values for prediction going from 0.1 to 0.9 with steps of 0.1.
+
+
 
 ```{r}
 library(ISLR)
@@ -51,14 +134,4 @@ To demonstrate the function `logistic_plot()` for plotting logistic curves in pa
 
 ```{r}
 logistic_plot(X=Training.set.2[,c("mpg","disp","hp")],Y=Training.set.2[,"vs"])
-```
-
-`vignette("Beta.hat()", package = "Final.Project.10")`
-
-`Beta.hat()` `vignette("try.Rmd")`
-
-vignette("extending-ggplot2", package = "ggplot2")
-
-```{r out.width = '70%', echo = FALSE}
-knitr::include_graphics("lieral.png")
 ```
