@@ -28,7 +28,9 @@ install_github("https://github.com/AU-R-Data-Science/Final.Project.10")
 
 ## Introduction
 
-The `Final.Project.10` package in based on the final project assignment of STAT-6210
+The `Final.Project.10` package in based on the final project assignment of STAT-6210. This document explains and gives examples of how to use the package functions for all the desired outputs using Weekly and mtcars dataset.
+
+And the develop **shiny app** stored in <https://github.com/AU-R-Data-Science/Final.Project.10/tree/main/Shiny%20app>, please check it separately.
 
 ```{r setup}
 library(Final.Project.10)

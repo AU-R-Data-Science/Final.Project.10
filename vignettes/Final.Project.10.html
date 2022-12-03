@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Final.Project.10 Vignette</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore"><code>Final.Project.10</code> Vignette</h1>
+
+
+
+<p>Source: <a href="https://github.com/AU-R-Data-Science/Final.Project.10" class="uri">https://github.com/AU-R-Data-Science/Final.Project.10</a></p>
+<p>GitHub repository: <code>Final.Project.10</code></p>
+<p>Package: <code>Final.Project.10</code></p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The <code>Final.Project.10</code> package in based on the final
+project assignment of STAT-6210. This document explains and gives
+examples of how to use the package functions for all the desired outputs
+using Weekly and mtcars dataset.</p>
+<p>And the develop <strong>shiny app</strong> stored in <a href="https://github.com/AU-R-Data-Science/Final.Project.10/tree/main/Shiny%20app" class="uri">https://github.com/AU-R-Data-Science/Final.Project.10/tree/main/Shiny%20app</a>,
+please check it separately.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Final.Project<span class="fl">.10</span>)</span></code></pre></div>
+<p>The available functions allow the user to input data sets to fit a
+logistic regression. The output includes: 1. estimated logistic
+regression model parameters; 2. initial values of the parameters; 3.
+confidence intervals for each parameter; 4. fitted logistic regression
+curves; 5. confusion matrix; 6. six metrics based on default cut-off
+values (Prevalence, Accuracy, Sensitivity, Specificity, False Discovery
+Rate and Diagnostic Odds Ratio) and 7. metrics with different cut-off
+values.</p>
+<p>This document shows the usage and output of the functions in
+<code>Final.Project.10</code>, using the <code>Weekly</code> dataset
+from the <code>ISLR</code> package and the <code>mtcars</code> dataset
+as examples. The <code>Weekly</code> dataset described the weekly
+percentage returns for the S&amp;P 500 stock index between 1990 and
+2010. And the <code>mtcars</code> was extracted from the 1974 Motor
+Trend US magazine, and comprises fuel consumption and 10 aspects of
+automobile design and performance for 32 automobiles (1973–74
+models).</p>
+</div>
+<div id="data-pre-processing" class="section level2">
+<h2>Data Pre-Processing</h2>
+<p>As an example, here we utilize the dataset <code>Weekly</code> from
+package <code>ISLR</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Weekly)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &#39;data.frame&#39;:    1089 obs. of  9 variables:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Year     : num  1990 1990 1990 1990 1990 1990 1990 1990 1990 1990 ...</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Lag1     : num  0.816 -0.27 -2.576 3.514 0.712 ...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Lag2     : num  1.572 0.816 -0.27 -2.576 3.514 ...</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Lag3     : num  -3.936 1.572 0.816 -0.27 -2.576 ...</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Lag4     : num  -0.229 -3.936 1.572 0.816 -0.27 ...</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Lag5     : num  -3.484 -0.229 -3.936 1.572 0.816 ...</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Volume   : num  0.155 0.149 0.16 0.162 0.154 ...</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Today    : num  -0.27 -2.576 3.514 0.712 1.178 ...</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ Direction: Factor w/ 2 levels &quot;Down&quot;,&quot;Up&quot;: 1 1 2 2 2 1 2 2 2 1 ...</span></span></code></pre></div>
+<p>The <code>Weekly</code> dataset has 1089 observations which contains
+9 attributes, where <code>Lag1</code>, <code>Lag2</code>,
+<code>Lag3</code>, <code>Lag4</code>, <code>Lag5</code> and
+<code>Volume</code>, can be used as predictor, and
+<code>Direction</code> can be used as response. The <code>mtcars</code>
+has 32 observations which contains 11 attributes, where
+<code>mpg</code>, <code>dis</code> and <code>hp</code> can be used as
+predictor, and <code>vs</code> can be used as response.</p>
+<p>It is important to note that the response values referenced in the
+functions available in this package need to be in factor format.
+Therefore, the <code>vs</code> variable in <code>mtcars</code> should be
+converted to factor format before calling the function.</p>
+<p>We want to take only the parameters <code>Lag1</code>,
+<code>Lag2</code>, <code>Lag3</code>, <code>Lag4</code>,
+<code>Lag5</code> and <code>Volume</code> as input.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Training.set<span class="fl">.1</span> <span class="ot">&lt;-</span> Weekly</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Training.set<span class="fl">.1</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Year   Lag1   Lag2   Lag3   Lag4   Lag5    Volume  Today Direction</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1990  0.816  1.572 -3.936 -0.229 -3.484 0.1549760 -0.270      Down</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1990 -0.270  0.816  1.572 -3.936 -0.229 0.1485740 -2.576      Down</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 1990 -2.576 -0.270  0.816  1.572 -3.936 0.1598375  3.514        Up</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 1990  3.514 -2.576 -0.270  0.816  1.572 0.1616300  0.712        Up</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 1990  0.712  3.514 -2.576 -0.270  0.816 0.1537280  1.178        Up</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 1990  1.178  0.712  3.514 -2.576 -0.270 0.1544440 -1.372      Down</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>X_train <span class="ot">&lt;-</span> Training.set<span class="fl">.1</span>[,<span class="fu">c</span>(<span class="st">&quot;Lag1&quot;</span>,<span class="st">&quot;Lag2&quot;</span>,<span class="st">&quot;Lag3&quot;</span>,<span class="st">&quot;Lag4&quot;</span>,<span class="st">&quot;Lag5&quot;</span>,<span class="st">&quot;Volume&quot;</span>)]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>y_train <span class="ot">&lt;-</span> Training.set<span class="fl">.1</span><span class="sc">$</span>Direction</span></code></pre></div>
+</div>
+<div id="summary-function-logistic.regression" class="section level2">
+<h2>Summary function <code>logistic.regression()</code></h2>
+<p>The <code>logistic.regression()</code> contains all the functions
+that the package is can implement, it is a summary of the analysis, and
+its output is a list data that include the following, and these values
+can also be calculated by separate functions. The help document of all
+these functions can be found in the package.</p>
+<ol style="list-style-type: decimal">
+<li><p>The level of response;</p></li>
+<li><p>Estimated value; (<code>Beta.hat()</code>)</p></li>
+<li><p>Initial value; (<code>Beta.init()</code>)</p></li>
+<li><p>The Confidence interval of ; (<code>boot.confi()</code>)</p></li>
+<li><p>Confusion Matrix; (<code>boot.confi()</code>)</p></li>
+<li><p>Default metrics(with 0.5 cut-off value);
+(<code>confusion.matrix()</code>)</p></li>
+<li><p>Table of different cut-off and metrics;
+(<code>metrics.table()</code>)</p></li>
+<li><p>Plot of different cut-off and metrics;</p></li>
+<li><p>Logistic curve for each perdictor.
+(<code>logistic_plot()</code>)</p></li>
+</ol>
+</div>
+<div id="train-the-model" class="section level2">
+<h2>Train the model</h2>
+<p>Use the function <code>logistic.regression()</code> to fit the model.
+Note that the parameter <code>Y</code> must be factors.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">logistic.regression</span>(X_train, y_train, <span class="co"># required</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">cutoff =</span> <span class="fl">0.5</span>,     <span class="co"># If you don&#39;t specify, the default will be 0.5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">alpha =</span> <span class="fl">0.1</span>,      <span class="co"># If you don&#39;t specify, the default will be 0.1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">B =</span> <span class="dv">20</span>)            <span class="co"># If you don&#39;t specify, the default will be 20</span></span></code></pre></div>
+<p>The user is able to choose the significance level to obtain for the
+1−confidence intervals for , as well as the cutoff value, where the
+default value is set to <em>0.1</em> and <em>0.5</em>, respectively.</p>
+<p>The user is also able to choose the number of bootstraps which by
+default will be <em>20</em>.</p>
+</div>
+<div id="chech-the-optimization-parameters" class="section level2">
+<h2>Chech the optimization parameters</h2>
+<p>Initial values for optimization obtained from the least-squares:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>optimization <span class="ot">&lt;-</span> fit<span class="sc">$</span>Beta</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(optimization)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Beta.hat</th>
+<th align="right">Beta.initial</th>
+<th align="right">CI:0.05%</th>
+<th align="right">CI:0.95%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">intercept</td>
+<td align="right">0.2668652</td>
+<td align="right">0.5659825</td>
+<td align="right">0.1330188</td>
+<td align="right">0.4286446</td>
+</tr>
+<tr class="even">
+<td align="left">Lag1</td>
+<td align="right">-0.0412693</td>
+<td align="right">-0.0100417</td>
+<td align="right">-0.0763497</td>
+<td align="right">-0.0071691</td>
+</tr>
+<tr class="odd">
+<td align="left">Lag2</td>
+<td align="right">0.0584429</td>
+<td align="right">0.0140856</td>
+<td align="right">0.0294301</td>
+<td align="right">0.1070556</td>
+</tr>
+<tr class="even">
+<td align="left">Lag3</td>
+<td align="right">-0.0160613</td>
+<td align="right">-0.0037521</td>
+<td align="right">-0.0676897</td>
+<td align="right">0.0340542</td>
+</tr>
+<tr class="odd">
+<td align="left">Lag4</td>
+<td align="right">-0.0277905</td>
+<td align="right">-0.0066555</td>
+<td align="right">-0.0528261</td>
+<td align="right">0.0127126</td>
+</tr>
+<tr class="even">
+<td align="left">Lag5</td>
+<td align="right">-0.0144721</td>
+<td align="right">-0.0034036</td>
+<td align="right">-0.0543562</td>
+<td align="right">0.0143521</td>
+</tr>
+<tr class="odd">
+<td align="left">Volume</td>
+<td align="right">-0.0227415</td>
+<td align="right">-0.0057436</td>
+<td align="right">-0.0839110</td>
+<td align="right">0.0211818</td>
+</tr>
+</tbody>
+</table>
+<p>The optimal is the same when we use the embeded <code>glm</code>
+method of R:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit.glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(<span class="at">data =</span> Weekly, Direction<span class="sc">~</span>Lag1<span class="sc">+</span>Lag2<span class="sc">+</span>Lag3<span class="sc">+</span>Lag4<span class="sc">+</span>Lag5<span class="sc">+</span>Volume, <span class="at">family =</span> binomial)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>fit.glm<span class="sc">$</span>coefficients</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)        Lag1        Lag2        Lag3        Lag4        Lag5 </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.26686414 -0.04126894  0.05844168 -0.01606114 -0.02779021 -0.01447206 </span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Volume </span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.02274153</span></span></code></pre></div>
+</div>
+<div id="bootstrap-confidence-interval" class="section level2">
+<h2>Bootstrap confidence Interval</h2>
+<p>The bootstrap process was performed when we called
+<code>logistic.regression()</code>. And the confidence interval can also
+be calculated by <code>boot.confi()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#CI &lt;- boot.confi(X=X_train,Y=y_train,alpha=0.05,B=20)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#knitr::kable(CI)</span></span></code></pre></div>
+</div>
+<div id="predict-and-inspect-the-output" class="section level2">
+<h2>Predict and Inspect the output</h2>
+<p>From that we obtain the resulting confusion matrix using a cut-off
+value for prediction at 0.5:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>confusion_Matrix <span class="ot">&lt;-</span> fit<span class="sc">$</span>Confusion.Matrix</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(confusion_Matrix)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Predicted.Up</th>
+<th align="right">Predicted.Down</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Actual.Up</td>
+<td align="right">557</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="left">Actual.Down</td>
+<td align="right">430</td>
+<td align="right">54</td>
+</tr>
+</tbody>
+</table>
+<p>And all the statistical metrics, including <code>Prevalence</code>,
+<code>Accuracy</code>, <code>Sensitivity</code>,
+<code>Specificity</code>, <code>False Discovery Rate</code>, and
+<code>Diagnostic Odds Ratio</code>, can be output by:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> fit<span class="sc">$</span>Metrics</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(m)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Prevalence</td>
+<td align="right">0.5555556</td>
+</tr>
+<tr class="even">
+<td align="left">Accuracy</td>
+<td align="right">0.5610652</td>
+</tr>
+<tr class="odd">
+<td align="left">Sensitivity</td>
+<td align="right">0.9206612</td>
+</tr>
+<tr class="even">
+<td align="left">Specificity</td>
+<td align="right">0.1115702</td>
+</tr>
+<tr class="odd">
+<td align="left">False.Discovery.Rate</td>
+<td align="right">0.4356636</td>
+</tr>
+<tr class="even">
+<td align="left">Diagnostic.Odds.Ratio</td>
+<td align="right">1.4572674</td>
+</tr>
+</tbody>
+</table>
+<p>Too see how the metrics vary when we use different cut-off values,
+check the <code>Metrics Table</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>metrics.table <span class="ot">&lt;-</span> fit<span class="sc">$</span><span class="st">&#39;Metrics Table&#39;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(metrics.table)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="10%" />
+<col width="9%" />
+<col width="11%" />
+<col width="11%" />
+<col width="20%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">Cut-off value</th>
+<th align="right">Prevalence</th>
+<th align="right">Accuracy</th>
+<th align="right">Sensitivity</th>
+<th align="right">Specificity</th>
+<th align="right">False.Discovery.Rate</th>
+<th align="right">Diagnostic.Odds.Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.1</td>
+<td align="right">0.5555556</td>
+<td align="right">0.5555556</td>
+<td align="right">1.0000000</td>
+<td align="right">0.0000000</td>
+<td align="right">0.4444444</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="even">
+<td align="right">0.2</td>
+<td align="right">0.5555556</td>
+<td align="right">0.5555556</td>
+<td align="right">1.0000000</td>
+<td align="right">0.0000000</td>
+<td align="right">0.4444444</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="odd">
+<td align="right">0.3</td>
+<td align="right">0.5555556</td>
+<td align="right">0.5564738</td>
+<td align="right">1.0000000</td>
+<td align="right">0.0020661</td>
+<td align="right">0.4439338</td>
+<td align="right">Inf</td>
+</tr>
+<tr class="even">
+<td align="right">0.4</td>
+<td align="right">0.5555556</td>
+<td align="right">0.5546373</td>
+<td align="right">0.9950413</td>
+<td align="right">0.0041322</td>
+<td align="right">0.4446494</td>
+<td align="right">0.8326418</td>
+</tr>
+<tr class="odd">
+<td align="right">0.5</td>
+<td align="right">0.5555556</td>
+<td align="right">0.5610652</td>
+<td align="right">0.9206612</td>
+<td align="right">0.1115702</td>
+<td align="right">0.4356636</td>
+<td align="right">1.4572674</td>
+</tr>
+<tr class="even">
+<td align="right">0.6</td>
+<td align="right">0.5555556</td>
+<td align="right">0.4738292</td>
+<td align="right">0.1371901</td>
+<td align="right">0.8946281</td>
+<td align="right">0.3805970</td>
+<td align="right">1.3499737</td>
+</tr>
+<tr class="odd">
+<td align="right">0.7</td>
+<td align="right">0.5555556</td>
+<td align="right">0.4490358</td>
+<td align="right">0.0099174</td>
+<td align="right">0.9979339</td>
+<td align="right">0.1428571</td>
+<td align="right">4.8380634</td>
+</tr>
+<tr class="even">
+<td align="right">0.8</td>
+<td align="right">0.5555556</td>
+<td align="right">0.4444444</td>
+<td align="right">0.0000000</td>
+<td align="right">1.0000000</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="odd">
+<td align="right">0.9</td>
+<td align="right">0.5555556</td>
+<td align="right">0.4444444</td>
+<td align="right">0.0000000</td>
+<td align="right">1.0000000</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+</tbody>
+</table>
+<p>We can see that some of the value in this table became NaN or Inf,
+that is because when the cut-off value is too small or too high, the
+model may classify all the test data to be positive or all negative,
+which will make the denominator to be 0 in the calculation.</p>
+</div>
+<div id="visualization-of-output" class="section level2">
+<h2>Visualization of output:</h2>
+<p>The possibility for the user to plot of any of the above metrics
+evaluated over a grid of cut-off values for prediction going from 0.1 to
+0.9 with steps of 0.1. (The graph ignores the missing Diagnostic odds
+ratio and false discovery rate values.)</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span><span class="st">`</span><span class="at">Cut-off image</span><span class="st">`</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="fitted-logistic-curve" class="section level2">
+<h2>Fitted Logistic curve</h2>
+<p>To demonstrate the function <code>logistic_plot()</code> for plotting
+logistic curves in packages, this section uses <code>mtcars</code> as
+the dataset, where <code>mpg</code>, <code>dis</code> and
+<code>hp</code> are used as predictors and <code>vs</code> is used as
+the response. The output of the <code>logistic_plot()</code> function is
+in list format, which contains the logistic regression curves for each
+predictor. For example, in this example the first element represents the
+logistic regression curve between <code>mpg</code> and <code>vs</code>,
+the second element represents the logistic regression curve between
+<code>disp</code> and <code>vs</code>, and the third element represents
+the logistic regression curve between <code>hp</code> and
+<code>vs</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Training.set<span class="fl">.2</span> <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Training.set<span class="fl">.2</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>Training.set<span class="fl">.2</span><span class="sc">$</span>vs <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Training.set<span class="fl">.2</span><span class="sc">$</span>vs)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">logistic_plot</span>(<span class="at">X=</span>Training.set<span class="fl">.2</span>[,<span class="fu">c</span>(<span class="st">&quot;mpg&quot;</span>,<span class="st">&quot;disp&quot;</span>,<span class="st">&quot;hp&quot;</span>)],<span class="at">Y=</span>Training.set<span class="fl">.2</span>[,<span class="st">&quot;vs&quot;</span>])</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using formula = &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>#&gt; 
+#&gt; [[2]]
+#&gt; `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>#&gt; 
+#&gt; [[3]]
+#&gt; `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
